@@ -2,10 +2,8 @@ package baseball;
 
 import utils.RandomUtils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author :    김우재
@@ -16,7 +14,6 @@ public class Application {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
         // TODO 구현 진행
-
 
         do {
             // 컴퓨터 숫자 구현
@@ -29,26 +26,53 @@ public class Application {
             // 사용자 숫자 구현
             Set<Integer> userBalls = new LinkedHashSet<>();
             String numbers_string = scanner.nextLine();
-            if(numbers_string.length() != 3) throw
+            if (numbers_string.length() != 3) throw
                     new IllegalArgumentException("알맞은 값을 입력하지 않았습니다.");
 
-            for(int i=0 ; i < 3; i++) {
+            for (int i = 0; i < 3; i++) {
                 char number_char = numbers_string.charAt(i);
-                if(!Character.isDigit(number_char)) throw
+                if (!Character.isDigit(number_char)) throw
                         new IllegalArgumentException("알맞은 값을 입력하지 않았습니다.");
             }
 
-            for(int i=0 ; i < 3; i++) {
+            for (int i = 0; i < 3; i++) {
                 int number_int = Character.getNumericValue(numbers_string.charAt(i));
-                if(number_int == 0) throw
+                if (number_int == 0) throw
                         new IllegalArgumentException("알맞은 값을 입력하지 않았습니다.");
             }
 
-            for(int i=0 ; i < 3; i++) {
+            for (int i = 0; i < 3; i++) {
                 int number_int = Character.getNumericValue(numbers_string.charAt(i));
                 userBalls.add(number_int);
             }
             userBalls.stream().forEach(System.out::println);
+
+            List<Integer> computerArray = computerBalls.stream().collect(Collectors.toList());
+            List<Integer> userArray = userBalls.stream().collect(Collectors.toList());
+
+            computerArray.stream().forEach(System.out::println);
+            userArray.stream().forEach(System.out::println);
+
+            int strikeCount = 0;
+            int ballCount = 0;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (computerArray.get(i) == userArray.get(j)) {
+                        if (i == j) strikeCount++;
+                        else ballCount++;
+                    }
+                }
+            }
+            if(ballCount > 0) {
+                System.out.println(ballCount + "볼 ");
+            }
+            if (strikeCount > 0 ) {
+                System.out.println(strikeCount + "스트라이크 ");
+            }
+            if(ballCount == 0 && strikeCount == 0) {
+                System.out.println("낫싱");
+            }
+
 
         } while (false);
 
