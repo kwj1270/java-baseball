@@ -2,6 +2,7 @@ package baseball;
 
 import utils.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class Application {
         final Scanner scanner = new Scanner(System.in);
         // TODO 구현 진행
 
+
         do {
             // 컴퓨터 숫자 구현
             Set<Integer> computerBalls = new LinkedHashSet<>();
@@ -23,6 +25,30 @@ public class Application {
                 computerBalls.add(RandomUtils.nextInt(1, 9));
             }
             computerBalls.stream().forEach(System.out::println);
+
+            // 사용자 숫자 구현
+            Set<Integer> userBalls = new LinkedHashSet<>();
+            String numbers_string = scanner.nextLine();
+            if(numbers_string.length() != 3) throw
+                    new IllegalArgumentException("알맞은 값을 입력하지 않았습니다.");
+
+            for(int i=0 ; i < 3; i++) {
+                char number_char = numbers_string.charAt(i);
+                if(!Character.isDigit(number_char)) throw
+                        new IllegalArgumentException("알맞은 값을 입력하지 않았습니다.");
+            }
+
+            for(int i=0 ; i < 3; i++) {
+                int number_int = Character.getNumericValue(numbers_string.charAt(i));
+                if(number_int == 0) throw
+                        new IllegalArgumentException("알맞은 값을 입력하지 않았습니다.");
+            }
+
+            for(int i=0 ; i < 3; i++) {
+                int number_int = Character.getNumericValue(numbers_string.charAt(i));
+                userBalls.add(number_int);
+            }
+            userBalls.stream().forEach(System.out::println);
 
         } while (false);
 
