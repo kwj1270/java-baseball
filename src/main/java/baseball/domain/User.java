@@ -40,12 +40,12 @@ public class User extends Player {
     }
 
     private static void checkBallsSize(Set<Integer> balls) {
-        if (balls.size() == LIMIT_NUMBER) ; // 중복값을 넣었으면 값이 줄어 들 것이다.
+        if (balls.size() == LIMIT_NUMBER) return; // 중복값을 넣었으면 값이 줄어 들 것이다.
         throw new IllegalArgumentException("알맞은 값을 입력하지 않았습니다.");
     }
 
     private static void checkBallsIncludeZero(Set<Integer> balls) {
-        if (!balls.contains(UNUSABLE_NUMBER)) ;
+        if (!balls.contains(UNUSABLE_NUMBER)) return;
         throw new IllegalArgumentException("알맞은 값을 입력하지 않았습니다.");
     }
 
